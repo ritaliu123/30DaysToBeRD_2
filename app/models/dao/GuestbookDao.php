@@ -2,27 +2,49 @@
 
 namespace Rita\Model\Dao;
 
+use Rita\Model\ORM\Guestbook;
+
+/**
+ * GuestbookDao
+ */
 class GuestbookDao
 {
-	// include("Guestbook.php");
-
-	public function guestbookList()
+    /**
+     * 取得所有留言
+     *
+     * @return obj $guestbook
+     */
+    public function guestbookList()
     {
-        $guestbook = new Guestbook();
-        $guestbook = Guestbook::find("columns" => "guestbookId, memberId, message, replyCount ,createTime");
+        $guestbook = Guestbook::find(["columns" => "guestbookId, memberId, message, replyCount ,createTime"]);
         return $guestbook;
     }
 
-	// 傳入memberId、留言內容，新建留言
-    public function addMessage($memberId,$message)
+    /**
+     * 新增留言
+     *
+     * @param int    $memberId 會員編號
+     * @param string $message  留言
+     *
+     * @return viod
+     */
+    public function addMessage($memberId, $message)
     {
         $guestbook = new Guestbook;
         $guestbook->memberId = $memberId;
         $guestbook->message = $message;
         $guestbook->save();
+
+        return $guestbook->guestbookId;
     }
 
-    // 傳入留言id新增回應數量
+    /**
+     * 新增留言的回應數量
+     *
+     * @param int $guestbookId 留言編號
+     *
+     * @return void
+     */
     public function addReplayCount($guestbookId)
     {
         $guestbook = new Guestbook;
@@ -32,10 +54,15 @@ class GuestbookDao
         $guestbook->save();
     }
 
-    // 傳入留言id，刪除留言
+    /**
+     * 刪除留言
+     *
+     * @param int $guestbookId 留言編號
+     *
+     * @return void
+     */
     public function deleteMessage($guestbookId)
     {
-        $guestbook = new Guestbook;
         $guestbook = Guestbook::find("guestbookId = $guestbookId");
         $guestbook->delete();
     }

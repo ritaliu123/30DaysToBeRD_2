@@ -1,5 +1,7 @@
 <?php
 
+namespace Rita\Model\ORM;
+
 class Guestbook extends \Phalcon\Mvc\Model
 {
 

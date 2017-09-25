@@ -1,5 +1,7 @@
 <?php
 
+namespace Rita\Model\ORM;
+
 class Reply extends \Phalcon\Mvc\Model
 {
 

@@ -4,30 +4,50 @@ namespace Rita\Model\Dao;
 
 use Rita\Model\ORM\Member;
 
+/**
+ * memberDao
+ */
 class MemberDao
 {
 
-	public function getMemeberList()
+    /**
+     * 取得所有會員資料
+     *
+     * @return obj $member
+     */
+    public function getMemeberList()
     {
-        $member = new Member();
-        $member = Member::find(["columns"=>"memberId, name, account, password ,createTime"]);
+        $member = Member::find(["columns" => "memberId, name, account, password ,createTime"]);
         return $member;
     }
 
-    // 傳入memberId取得單一會員資料
+    /**
+     * 取得單一會員資料
+     *
+     * @param int $memberId 會員編號
+     *
+     * @return obj $member
+     */
     public function getMemeber($memberId)
     {
-        $member = new Member();
         $member = Member::findFirst(
             [
-                "memberId" => $memberId,
+                "memberId = $memberId",
                 "columns" => "memberId, name, account, password ,createTime",
             ]
         );
         return $member;
     }
 
-   	//傳入會員帳號、姓名、密碼新增會員帳號
+    /**
+     * 新增會員
+     *
+     * @param string $account  會員帳號
+     * @param string $name     會員姓名
+     * @param string $password 會員密碼
+     *
+     * @return int memberId
+     */
     public function addMemeber($account, $name, $password)
     {
         $member = new Member();
@@ -35,9 +55,20 @@ class MemberDao
         $member->account = $account;
         $member->password = $password;
         $member->save();
+
+        return $member->memberId;
     }
 
-    //傳入會員id、帳號、名稱、密碼並更新
+    /**
+     * 更新會員資料
+     *
+     * @param int    $memberId 會員編號
+     * @param string $account  會員帳號
+     * @param string $name     會員姓名
+     * @param string $password 會員密碼
+     *
+     * @return void
+     */
     public function updateMemeber($memberId, $account, $name, $password)
     {
         $member = new Member();
@@ -48,10 +79,15 @@ class MemberDao
         $member->save();
     }
 
-	// 傳入memberid並刪除
+    /**
+     * 刪除會員資料
+     *
+     * @param string $memberId 會員編號
+     *
+     * @return void
+     */
     public function deleteMember($memberId)
     {
-        $member = new Member();
         $member = Member::findFirst("memberId = $memberId");
         $member->delete();
     }

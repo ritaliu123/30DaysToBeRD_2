@@ -2,15 +2,23 @@
 
 namespace Rita\Model\Dao;
 
+use Rita\Model\ORM\Reply;
+
+/**
+ * ReplyDao
+ */
 class ReplyDao
 {
-    include("Reply.php");
-
     
-    //傳入留言id，找到該留言底下的回應
+    /**
+     * 尋找留言內的所有回覆
+     *
+     * @param int $guestbookId 留言編號
+     *
+     * @return obj $reply
+     */
     public function replyList($guestbookId)
     {
-        $reply = new Reply;
         $reply = Guestbook::find(
             [
                 "guestbookId = $guestbookId",
@@ -20,7 +28,15 @@ class ReplyDao
         return $reply;
     }
 
-	// 傳入留言id、memberid、回應訊息，新增回應
+    /**
+     * 新增回覆
+     *
+     * @param int    $guestbookId 留言編號
+     * @param int    $memberId    會員編號
+     * @param string $message     回覆
+     *
+     * @return int $reply
+     */
     public function addReplay($guestbookId, $memberId, $message)
     {
         $reply = new Reply;
@@ -28,13 +44,21 @@ class ReplyDao
         $reply->memberId = $memberId;
         $reply->message = $message;
         $reply->save();
+
+        return $reply->replyId;
     }
 
-    // 傳入留言id，刪除回應
+    /**
+     * 刪除回覆
+     *
+     * @param int $guestbookId 留言編號
+     *
+     * @return void
+     */
     public function deleteReply($guestbookId)
     {
         $reply = new Reply;
-        $reply = Reply::find("guestbookId = $guestbookId")
+        $reply = Reply::find("guestbookId = $guestbookId");
         $reply->delete();
     }
 
