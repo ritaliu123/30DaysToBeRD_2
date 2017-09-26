@@ -57,7 +57,6 @@ class ReplyDao
      */
     public function deleteReply($guestbookId)
     {
-        $reply = new Reply;
         $reply = Reply::find("guestbookId = $guestbookId");
         $reply->delete();
     }

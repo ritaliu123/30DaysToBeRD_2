@@ -18,6 +18,17 @@ $router->add(
         "controller" => "member",
         "action"     => "login",
     ]
+
+);
+
+$router->add(
+    "/guestbook",
+    [
+        "controller" => "guestbook",
+        "action"     => "login",
+    ]
+
 );
 
 return $router;
+?>
