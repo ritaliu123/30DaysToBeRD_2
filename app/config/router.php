@@ -22,10 +22,55 @@ $router->add(
 );
 
 $router->add(
+    "/member",
+    [
+        "controller" => "member",
+        "action"     => "memberlist",
+    ]
+
+);
+
+$router->add(
+    "/member/profile",
+    [
+        "controller" => "member",
+        "action"     => "profile",
+    ]
+
+);
+
+$router->add(
+    "/member/register",
+    [
+        "controller" => "member",
+        "action"     => "register",
+    ]
+
+);
+
+$router->add(
     "/guestbook",
     [
         "controller" => "guestbook",
-        "action"     => "login",
+        "action"     => "guestbook",
+    ]
+
+);
+
+$router->add(
+    "/guestbook/message",
+    [
+        "controller" => "guestbook",
+        "action"     => "message",
+    ]
+
+);
+
+$router->add(
+    "/guestbook/reply",
+    [
+        "controller" => "guestbook",
+        "action"     => "reply",
     ]
 
 );
