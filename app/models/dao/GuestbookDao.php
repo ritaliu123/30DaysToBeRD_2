@@ -47,7 +47,6 @@ class GuestbookDao
      */
     public function addReplayCount($guestbookId)
     {
-        $guestbook = new Guestbook;
         $guestbook = Guestbook::findFirst("guestbookId = $guestbookId");
         $replayCount = $guestbook['replyCount'] + 1;
         $guestbook->replyCount = $replayCount;
@@ -67,5 +66,6 @@ class GuestbookDao
         $guestbook->delete();
     }
 }
+
 
 ?>

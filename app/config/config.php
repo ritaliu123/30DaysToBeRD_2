@@ -11,10 +11,10 @@ return new \Phalcon\Config([
         'adapter'     => 'Mysql',
         'host'        => 'rita.soez.tw',
         'username'    => 'admin',
-        'password'    => 'Zcl3aUpS7CMC',
+        'password'    => 'X6s4KFnhzL5a',
         'dbname'      => 'rita',
         'charset'     => 'utf8',
-        'port'        => 32771,
+        'port'        => 32774,
     ],
     'application' => [
         'appDir'         => APP_PATH . '/',

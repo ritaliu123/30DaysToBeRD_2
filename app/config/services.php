@@ -113,6 +113,6 @@ $di->setShared('session', function () {
 });
 
 $di->set('router', function () {
-    $router = include APP_PATH . '/config/router.php';
+    include APP_PATH . '/config/router.php';
     return $router;
 });

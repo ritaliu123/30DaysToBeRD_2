@@ -4,6 +4,8 @@ namespace Rita\Controllers;
 
 use Rita\Controllers\ControllerBase;
 use Rita\Model\Dao\MemberDao;
+use Phalcon\Mvc\View;
+
 
 /**
  * MemberController
@@ -18,9 +20,7 @@ class MemberController extends ControllerBase
      */
     public function loginAction()
     {
-        $memberDao = new MemberDao();
-        echo "loginAction";
-        exit();
+        $this->view->setTemplateAfter('loginheader');
     }
 
     /**
@@ -28,11 +28,22 @@ class MemberController extends ControllerBase
      *
      * @return void
      */
-    public function memberlistAction()
+    public function memberAction()
     {
+        
+       $this->view->setTemplateAfter('header');
+
+    	// $this->view->disableLevel(
+     //        View::LEVEL_MAIN_LAYOUT
+     //    );
+     //    $this->view->disableLevel(
+     //        View::LEVEL_LAYOUT
+     //    );
         $memberDao = new MemberDao();
-        echo "memberlistAction";
-        exit();
+        $memberDa1 = $memberDao->checkMemeber("yyy@com.tw","123");
+        echo $memberDa1;
+        
+    	exit();
     }
 
     /**
@@ -42,9 +53,10 @@ class MemberController extends ControllerBase
      */
     public function profileAction()
     {
+        $this->view->setTemplateAfter('header');
         $memberDao = new MemberDao();
-        echo "profileAction";
-        exit();
+        // echo "profileAction";
+        // exit();
     }
 
     /**
@@ -54,11 +66,12 @@ class MemberController extends ControllerBase
      */
     public function registerAction()
     {
+        $this->view->setTemplateAfter('loginheader');
         $memberDao = new MemberDao();
-        echo "registerAction";
-        exit();
     }
 }
+
+
 
 ?>
 

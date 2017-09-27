@@ -25,7 +25,7 @@ $router->add(
     "/member",
     [
         "controller" => "member",
-        "action"     => "memberlist",
+        "action"     => "member",
     ]
 
 );
@@ -75,5 +75,4 @@ $router->add(
 
 );
 
-return $router;
 ?>

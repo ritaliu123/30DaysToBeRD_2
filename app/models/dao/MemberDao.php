@@ -3,12 +3,36 @@
 namespace Rita\Model\Dao;
 
 use Rita\Model\ORM\Member;
+use Phalcon\Db\Column;
 
 /**
  * memberDao
  */
 class MemberDao
 {
+    /**
+     * 檢查會員資料
+     *
+     * @param string $account  會員帳號
+     * @param string $password 會員密碼
+     *
+     * @return int $memberId 會員編號
+     */
+    public function checkMemeber($account, $password)
+    {
+        // $member = Member::findFirst("account = '$account' AND password = '$password'");
+        $member = Member::findFirst(
+            [
+                "account = :account: AND password = :password:",
+                "bind" => [
+                "account" => "$account",
+                "password" => "$password",
+                ],
+                "columns" => "memberId"
+            ]
+        );
+        return $member->memberId;
+    }
 
     /**
      * 取得所有會員資料
@@ -71,7 +95,6 @@ class MemberDao
      */
     public function updateMemeber($memberId, $account, $name, $password)
     {
-        $member = new Member();
         $member = Member::findFirst("memberId = $memberId");
         $member->name = $name;
         $member->account = $account;
