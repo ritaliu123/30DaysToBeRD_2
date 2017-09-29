@@ -41,7 +41,7 @@ class MemberController extends ControllerBase
             if ($memberId) {
                 $member = $MemberService->getMemeber($memberId);
                 $this->session->set("memberName", $member->name);
-                header("Location:http://rita.soez.tw/member");
+                $this->response->redirect("http://rita.soez.tw/member");
             }
         }
     }
@@ -53,12 +53,28 @@ class MemberController extends ControllerBase
      */
     public function memberAction()
     {
+        if ($this->session->get("memberName")) {
+            $this->view->sessionName = $this->session->get("memberName");
+        } else {
+            $this->response->redirect();
+        }
+
         $MemberService = new MemberService();
         $MemeberList = $MemberService->getMemeberList();
+        // 會員總數
+        $countMember = $MemberService->countItem($MemeberList);
+        // 總共幾頁
+        $pages = ceil($countMember / 5);
+        $this->view->pages = $pages;
         $this->view->memberList = $MemeberList;
+
         $this->view->sessionName = $this->session->get("memberName");
-        if ($this->request->getQuery("id")) {
-        	//echo "123";
+
+        $deleteMemberId = $this->request->getQuery("memberId");
+        if ($deleteMemberId) {
+            $MemberService->deleteMember($deleteMemberId);
+            $this->response->redirect("http://rita.soez.tw/member");
+
         }
         //exit();
     }
@@ -70,16 +86,31 @@ class MemberController extends ControllerBase
      */
     public function profileAction()
     {
+        if ($this->session->get("memberName")) {
+            $this->view->sessionName = $this->session->get("memberName");
+        } else {
+            $this->response->redirect();
+        }
+
         $MemberService = new MemberService();
         $this->view->sessionName = $this->session->get("memberName");
-        $a = $this->request->getQuery("memberId");
-        echo $a;
-        exit();
-
         $memberId = $this->request->getQuery("memberId");
         if ($memberId) {
             $member = $MemberService->getMemeber($memberId);
-            $this->view->member = $member;
+        }
+        $this->view->member = $member;
+        // var_dump($member);
+        // exit();
+
+
+        $account = $this->request->getPost("account");
+        $password = $this->request->getPost("password");
+        $name = $this->request->getPost("name");
+        $memberId = $this->request->getPost("memberId");
+        if ($account && $password && $name && $memberId) {
+            $member = $MemberService->updateMemeber($memberId, $account, $name, $password);
+            $this->response->redirect("http://rita.soez.tw/member");
+
         }
     }
 
@@ -97,7 +128,7 @@ class MemberController extends ControllerBase
         $password = $this->request->getPost("password");
         if ($name && $account && $password) {
             $MemberService->addMemeber($account, $name, $password);
-            header("Location:http://rita.soez.tw/member/login");
+            $this->response->redirect("http://rita.soez.tw/member/login");
         }
     }
 }

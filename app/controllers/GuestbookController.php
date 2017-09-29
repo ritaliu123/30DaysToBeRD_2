@@ -4,6 +4,8 @@ namespace Rita\Controllers;
 
 use Rita\Controllers\ControllerBase;
 use Rita\Model\Dao\GuestbookDao;
+use Rita\Model\GuestbookService;
+
 //use Phalcon\Mvc\View;
 
 /**
@@ -29,9 +31,18 @@ class GuestbookController extends ControllerBase
      */
     public function guestbookAction()
     {
-        $GuestbookDao = new GuestbookDao();
-        // echo "guestbookAction";
-        // exit();
+        if ($this->session->get("memberName")) {
+            $this->view->sessionName = $this->session->get("memberName");
+        } else {
+            $this->response->redirect();
+        }
+
+        $GuestbookService = new GuestbookService();
+        $guestbookList = $GuestbookService->guestbookList();
+        $this->view->guestbookList = $guestbookList;
+        $replyList = $GuestbookService->replyList();
+        $this->view->replyList = $replyList;
+
     }
 
     /**
@@ -41,7 +52,13 @@ class GuestbookController extends ControllerBase
      */
     public function messageAction()
     {
-        $GuestbookDao = new GuestbookDao();
+        if ($this->session->get("memberName")) {
+            $this->view->sessionName = $this->session->get("memberName");
+        } else {
+            $this->response->redirect();
+        }
+
+        $GuestbookService = new GuestbookService();
         // echo "messageAction";
         // exit();
     }
@@ -53,9 +70,22 @@ class GuestbookController extends ControllerBase
      */
     public function replyAction()
     {
-        $GuestbookDao = new GuestbookDao();
+        if ($this->session->get("memberName")) {
+            $this->view->sessionName = $this->session->get("memberName");
+        } else {
+            $this->response->redirect();
+        }
+
+        $GuestbookService = new GuestbookService();
         // echo "replyAction";
         // exit();
+    }
+
+    public function apiGuestbookAction($memberId, $message)
+    {
+
+        $guestbookService = new guestbookService();
+        $guestbookService->addMessage($memberId, $message);
     }
 }
 

@@ -45,9 +45,17 @@ class MemberDao
         return $member;
     }
 
-    public function countitem($item)
+    /**
+     * 取得物件數量
+     *
+     * @param obj $item 物件
+     *
+     * @return int 物件數量
+     */
+    public function countItem($item)
     {
-        return count($item);
+        $member = new Member();
+        return $member->count($item);
     }
 
     /**

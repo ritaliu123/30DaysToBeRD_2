@@ -8,6 +8,7 @@ use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as Flash;
 use Phalcon\Http\Request;
+use Phalcon\Http\Response;
 
 /**
  * Shared configuration service
@@ -121,4 +122,9 @@ $di->set('router', function () {
 $di->set('request', function () {
     $request = new Request();
     return $request;
+});
+
+$di->set('response', function () {
+    $response = new Response();
+    return $response;
 });

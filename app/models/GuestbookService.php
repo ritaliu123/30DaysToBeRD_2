@@ -1,6 +1,6 @@
 <?php
 
-namespace Rita\Model\Service;
+namespace Rita\Model;
 
 use Rita\Model\Dao\GuestbookDao;
 use Rita\Model\Dao\ReplyDao;
@@ -33,8 +33,12 @@ class GuestbookService
 
 	public function replyList($guestbookId)
     {
+        $GuestbookDao = new GuestbookDao;
         $ReplyDao = new ReplyDao;
-        $replyList = $ReplyDao->replyList($guestbookId);
+        $guestbookReply = $GuestbookDao->guestbookReply();
+        foreach ($guestbookReply as $guestbookId => $id) {
+            $replyList = $ReplyDao->replyList($guestbookId);
+        }
         return $replyList;
     }
 

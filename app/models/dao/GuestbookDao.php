@@ -21,6 +21,22 @@ class GuestbookDao
     }
 
     /**
+     * 取得有回覆的留言
+     *
+     * @return obj $guestbook
+     */
+    public function guestbookReply()
+    {
+        $guestbook = Guestbook::findFirst(
+            [
+                "replyCount > 0",
+                "columns" => "guestbookId",
+            ]
+        );
+        return $guestbook;
+    }
+
+    /**
      * 新增留言
      *
      * @param int    $memberId 會員編號

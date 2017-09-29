@@ -8,14 +8,11 @@ $router->setUriSource(
 );
 $router->removeExtraSlashes(true);
 $router->setDefaultNamespace("Rita\\Controllers");
-$router->setDefaultController("index");
-$router->setDefaultAction("index");
-
-// Define your routes here
-
 // 將首頁設為
 $router->setDefaultController("member");
 $router->setDefaultAction("login");
+
+// Define your routes here
 
 $router->add(
     "/member/login",
@@ -76,6 +73,15 @@ $router->add(
     [
         "controller" => "guestbook",
         "action"     => "reply",
+    ]
+
+);
+
+$router->addPost(
+    "api/guestbook/{memberId}/{message}",
+    [
+        "controller" => "guestbook",
+        "action"     => "apiGuestbook",
     ]
 
 );

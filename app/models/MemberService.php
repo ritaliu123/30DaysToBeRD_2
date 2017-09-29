@@ -47,7 +47,15 @@ class MemberService
     public function deleteMember($memberId)
     {
         $MemberDao = new MemberDao;
-        $deleteMember = $MemberDao->deleteMember($memberId);
+        $MemberDao->deleteMember($memberId);
+    }
+
+
+    public function countItem($item)
+    {
+        $MemberDao = new MemberDao();
+        $countItem = $MemberDao->countItem($item);
+        return $countItem;
     }
 }
 

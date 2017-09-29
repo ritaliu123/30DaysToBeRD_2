@@ -19,7 +19,7 @@ class ReplyDao
      */
     public function replyList($guestbookId)
     {
-        $reply = Guestbook::find(
+        $reply = Reply::find(
             [
                 "guestbookId = $guestbookId",
                 "columns" => "memberId,message,createTime",
