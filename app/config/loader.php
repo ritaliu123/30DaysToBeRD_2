@@ -17,6 +17,6 @@ $loader->registerNamespaces(
      "Rita\Controllers"   => APP_PATH . "/controllers",
      "Rita\Model\ORM"     => APP_PATH . "/models/orm",
      "Rita\Model\Dao"     => APP_PATH . "/models/dao",
-     "Rita\Model\Service" => APP_PATH . "/models/service",
+     "Rita\Model" => APP_PATH . "/models",
     ]
 )->register();

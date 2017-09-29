@@ -12,6 +12,11 @@ $router->setDefaultController("index");
 $router->setDefaultAction("index");
 
 // Define your routes here
+
+// 將首頁設為
+$router->setDefaultController("member");
+$router->setDefaultAction("login");
+
 $router->add(
     "/member/login",
     [

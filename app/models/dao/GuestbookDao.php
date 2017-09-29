@@ -26,7 +26,7 @@ class GuestbookDao
      * @param int    $memberId 會員編號
      * @param string $message  留言
      *
-     * @return viod
+     * @return int $guestbookId
      */
     public function addMessage($memberId, $message)
     {

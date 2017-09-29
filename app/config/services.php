@@ -7,6 +7,7 @@ use Phalcon\Mvc\View\Engine\Volt as VoltEngine;
 use Phalcon\Mvc\Model\Metadata\Memory as MetaDataAdapter;
 use Phalcon\Session\Adapter\Files as SessionAdapter;
 use Phalcon\Flash\Direct as Flash;
+use Phalcon\Http\Request;
 
 /**
  * Shared configuration service
@@ -115,4 +116,9 @@ $di->setShared('session', function () {
 $di->set('router', function () {
     include APP_PATH . '/config/router.php';
     return $router;
+});
+
+$di->set('request', function () {
+    $request = new Request();
+    return $request;
 });

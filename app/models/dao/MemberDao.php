@@ -25,8 +25,8 @@ class MemberDao
             [
                 "account = :account: AND password = :password:",
                 "bind" => [
-                "account" => "$account",
-                "password" => "$password",
+                    "account" => $account,
+                    "password" => $password,
                 ],
                 "columns" => "memberId"
             ]
@@ -43,6 +43,11 @@ class MemberDao
     {
         $member = Member::find(["columns" => "memberId, name, account, password ,createTime"]);
         return $member;
+    }
+
+    public function countitem($item)
+    {
+        return count($item);
     }
 
     /**

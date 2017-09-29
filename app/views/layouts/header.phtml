@@ -42,7 +42,7 @@
           <li class="dropdown user user-menu">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="http://rita.soez.tw/dist/img/user2-160x160.jpg" class="user-image" alt="User Image">
-              <span class="hidden-xs">Alexander Pierce</span>
+              <span class="hidden-xs"><?php echo $sessionName;?></span>
             </a>
             <ul class="dropdown-menu">
               <!-- User image -->
@@ -67,10 +67,7 @@
    
     <div class="container">
             <?php echo $this->getContent(); //印action裡面的東西?>
-        </div>
-
-
-</div>
+    </div>
 <!-- jQuery 3 -->
 <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
@@ -78,10 +75,4 @@
 <!-- Bootstrap 3.3.7 -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </body>
-
-
-
-
-
- 
 </html>

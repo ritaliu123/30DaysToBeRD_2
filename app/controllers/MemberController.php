@@ -4,14 +4,24 @@ namespace Rita\Controllers;
 
 use Rita\Controllers\ControllerBase;
 use Rita\Model\Dao\MemberDao;
-use Phalcon\Mvc\View;
+use Rita\Model\MemberService;
 
+//use Phalcon\Mvc\View;
 
 /**
  * MemberController
  */
 class MemberController extends ControllerBase
 {
+    /**
+     * 宣告預設header為header頁
+     *
+     * @return void
+     */
+    public function initialize()
+    {
+        $this->view->setTemplateAfter('header');
+    }
 
     /**
      * 登入頁
@@ -21,6 +31,19 @@ class MemberController extends ControllerBase
     public function loginAction()
     {
         $this->view->setTemplateAfter('loginheader');
+
+        $account = $this->request->getPost("account");
+        $password = $this->request->getPost("password");
+        
+        if ($account != "" && $password != "") {
+            $MemberService = new MemberService();
+            $memberId = $MemberService->checkMemeber($account, $password);
+            if ($memberId) {
+                $member = $MemberService->getMemeber($memberId);
+                $this->session->set("memberName", $member->name);
+                header("Location:http://rita.soez.tw/member");
+            }
+        }
     }
 
     /**
@@ -30,20 +53,14 @@ class MemberController extends ControllerBase
      */
     public function memberAction()
     {
-        
-       $this->view->setTemplateAfter('header');
-
-    	// $this->view->disableLevel(
-     //        View::LEVEL_MAIN_LAYOUT
-     //    );
-     //    $this->view->disableLevel(
-     //        View::LEVEL_LAYOUT
-     //    );
-        $memberDao = new MemberDao();
-        $memberDa1 = $memberDao->checkMemeber("yyy@com.tw","123");
-        echo $memberDa1;
-        
-    	exit();
+        $MemberService = new MemberService();
+        $MemeberList = $MemberService->getMemeberList();
+        $this->view->memberList = $MemeberList;
+        $this->view->sessionName = $this->session->get("memberName");
+        if ($this->request->getQuery("id")) {
+        	//echo "123";
+        }
+        //exit();
     }
 
     /**
@@ -53,10 +70,17 @@ class MemberController extends ControllerBase
      */
     public function profileAction()
     {
-        $this->view->setTemplateAfter('header');
-        $memberDao = new MemberDao();
-        // echo "profileAction";
-        // exit();
+        $MemberService = new MemberService();
+        $this->view->sessionName = $this->session->get("memberName");
+        $a = $this->request->getQuery("memberId");
+        echo $a;
+        exit();
+
+        $memberId = $this->request->getQuery("memberId");
+        if ($memberId) {
+            $member = $MemberService->getMemeber($memberId);
+            $this->view->member = $member;
+        }
     }
 
     /**
@@ -67,7 +91,14 @@ class MemberController extends ControllerBase
     public function registerAction()
     {
         $this->view->setTemplateAfter('loginheader');
-        $memberDao = new MemberDao();
+        $MemberService = new MemberService();
+        $name = $this->request->getPost("name");
+        $account = $this->request->getPost("account");
+        $password = $this->request->getPost("password");
+        if ($name && $account && $password) {
+            $MemberService->addMemeber($account, $name, $password);
+            header("Location:http://rita.soez.tw/member/login");
+        }
     }
 }
 

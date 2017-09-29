@@ -4,14 +4,23 @@ namespace Rita\Controllers;
 
 use Rita\Controllers\ControllerBase;
 use Rita\Model\Dao\GuestbookDao;
-use Phalcon\Mvc\View;
-
+//use Phalcon\Mvc\View;
 
 /**
  * GuestbookController
  */
 class GuestbookController extends ControllerBase
 {
+    /**
+     * 宣告預設header為header頁
+     *
+     * @return void
+     */
+    public function initialize()
+    {
+        $this->view->setTemplateAfter('header');
+    }
+
 
     /**
      * 留言板
@@ -20,7 +29,6 @@ class GuestbookController extends ControllerBase
      */
     public function guestbookAction()
     {
-        $this->view->setTemplateAfter('header');
         $GuestbookDao = new GuestbookDao();
         // echo "guestbookAction";
         // exit();
@@ -33,7 +41,6 @@ class GuestbookController extends ControllerBase
      */
     public function messageAction()
     {
-        $this->view->setTemplateAfter('header');
         $GuestbookDao = new GuestbookDao();
         // echo "messageAction";
         // exit();
@@ -46,7 +53,6 @@ class GuestbookController extends ControllerBase
      */
     public function replyAction()
     {
-        $this->view->setTemplateAfter('header');
         $GuestbookDao = new GuestbookDao();
         // echo "replyAction";
         // exit();

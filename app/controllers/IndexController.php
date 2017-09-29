@@ -5,7 +5,6 @@ namespace Rita\Controllers;
 use Rita\Controllers\ControllerBase;
 use Phalcon\Mvc\View;
 
-
 class IndexController extends ControllerBase
 {
 
@@ -13,13 +12,7 @@ class IndexController extends ControllerBase
     {
     	
     	
-       // $this->view->setTemplateAfter('test');
-    	// $this->view->disableLevel(
-     //        View::LEVEL_MAIN_LAYOUT
-     //    );
-        // $this->view->disableLevel(
-        //     View::LEVEL_LAYOUT
-        // );
+       
     }
 
 

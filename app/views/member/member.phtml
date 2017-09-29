@@ -18,18 +18,24 @@
                   <th>功能</th>
                 </tr>
                 </thead>
+
                 <tbody>
-                <tr>
-                  <td>1</td>
-                  <td>123</td>
-                  <td>jfksdjfklsjdfklsd@friday.tw</td>
-                  <td>2017-10-10</td>
-                  <td>
-                    <button type="button" class="btn btn-info" onClick="window.location.href='Profile.php?memberId=1';">編輯</button>
-                    <button type="button" class="btn btn-danger" onClick="window.location.href='MemberList.php?memberId=1';">刪除</button>
-                  </td>
-                </tr>
+                  <?php
+
+                      foreach ($memberList as $member) {
+                          echo "<td>", $member->memberId, "</td>";
+                          echo "<td>", $member->name, "</td>";
+                          echo "<td>", $member->account, "</td>";
+                          echo "<td>", $member->createTime, "</td>";
+                          ?>
+                    <td>
+                    <button type="button" class="btn btn-info" onClick="window.location.href='http://rita.soez.tw/member/profile?memberId=<?php echo $member->memberId;?>';">編輯</button>
+                    <button type="button" class="btn btn-danger" onClick="window.location.href='http://rita.soez.tw/member?memberId=<?php echo $member->memberId;?>';">刪除</button>
+                    </td>
+                    </tr>
+                    <?php } ?>
                 </tbody>
+
               </table>
             </div>
             <!-- /.box-body -->
